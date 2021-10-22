@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="this is produce code for kaha...">
+    <title>kaha Tool</title>
+
+    <style>
+        body {
+            margin: 0;
+        }
+
+        #body {
+            height: 100vh;
+            width: 100vw;
+        }
+
+        .container {
+            height: 200px;
+            width: 100%;
+            background: #fdf0e1;
+            border: #bfadad 2px solid;
+            margin-top: 30px;
+            display: inline-flex;
+        }
+
+        .content_remove {
+            height: 100%;
+            /* width: 10%; */
+            border: #bfadad 2px solid;
+            flex-grow: 1;
+            transition: all 1s;
+        }
+
+        .content_block {
+            height: 100%;
+            /* width: 75%; */
+            border: #bfadad 2px solid;
+            flex-grow: 10;
+            transition: all 1s;
+        }
+
+        .timing {
+            height: 50px;
+            width: 20vw;
+            border: #bfadad 2px solid;
+            display: block;
+        }
+
+        .command {
+            height: 100px;
+            width: 75%;
+            display: inline-block;
+            border: #bfadad 2px solid;
+
+        }
+
+        .btn_bar {
+            height: 100px;
+            width: 15%;
+            display: inline-block;
+            border: #bfadad 2px solid;
+        }
+
+        .content_join {
+            margin-top: 30px;
+            height: 50px;
+            width: 50px;
+            border: #bfadad 2px solid;
+            transition: all 1s;
+        }
+
+        .export {
+            margin-top: 50px;
+            height: 50px;
+            width: 50px;
+            border: #bfadad 2px solid;
+            transition: all 1s;
+        }
+    </style>
+</head>
+
+
+<body>
+    <div id="body">
+        <div id="container" class="container">
+            <div id="content_remove" class="content_remove">
+                -btn
+            </div>
+            <div id="content_block" class="content_block">
+                <div id="timing" class="timing">
+                    time
+                </div>
+                <div id="btn_bar" class="btn_bar"> move btn&＋-</div>
+                <div id="command" class="command"> command</div>
+            </div>
+        </div>
+        <div id="content_join" class="content_join">
+            +btn
+        </div>
+        <div id="export" class="export">
+            export
+        </div>
+    </div>
+
+</body>
+
+</html>
