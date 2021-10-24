@@ -93,22 +93,21 @@ var commandOption = {
 
 /* 選擇對象指令 */
 
-var selectTargetOptionSpace = [ // 沒有後續選項
-    "Self",
-    "LastSelected",
-    "LastAttacked",
-    "CurrentActor",
-];
-
-var selectTargetOptionST = [ // 兩格下拉參數
-    "Select",
-    "SelectOther",
-]
-
-var selectTargetOptionT = [ // 給一個輸入格就好
-    "SkillLastSelected"
-]
-
+var selectTarget = {
+    selectTargetOptionSpace =[ // 沒有後續選項
+        "Self",
+        "LastSelected",
+        "LastAttacked",
+        "CurrentActor",
+    ],
+    selectTargetOptionST =[ // 兩格下拉參數
+        "Select",
+        "SelectOther",
+    ],
+    selectTargetOptionT =[ // 給一個輸入格就好
+        "SkillLastSelected"
+    ]
+}
 /* 選擇對象指令 */
 
 /* 選擇對象指令參數 */
