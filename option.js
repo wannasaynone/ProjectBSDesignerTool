@@ -34,48 +34,61 @@ var TriggerTimingOption = [
 /* Trigger Timing */
 
 /* Command */
+var commandOption = {
 
-var commandOption = [
-    "SetStatus",
-    "AddStatus",
-    "DealDamage",
-    "AddDamage",
-    "SetDamage",
-    "SetForceEndAction",
-    "SetSkipCheckSP",
-    "GainBuff",
-    "AddBuffAmount",
-    "AddBuffAmountByTag",
-    "AddBuffTime",
-    "AddBuffTimeByTag",
-    "BeginIf",
-    "BeginIf_Buff",
-    "BeginIf_Skill",
-    "BeginIf_HasBuffTag",
-    "BeginIf_LastSkillTag",
-    "EndIf",
-    "AddShield",
-    "Chain",
-    "ReplaceSkill",
-    "CastSkill",
-    "RandomCastSkill",
-    "ForceDie",
-    "Destroy",
-    "LockAddStatus",
-    "AddActionIndex",
-    "AddExtraAction",
-    "Remember",
-    "TriggerBuff",
-    "SetPlayAnimationNext",
-    "ShowSkillFailed",
-    "ShowVFX",
-    "Wait",
-    "ShowVFXOnTarget",
-    "PlaySFX"
-]
+    command_T_T: [ // 選對象 +2Text
+        "SetStatus",
+        "AddStatus",
+        "DealDamage",
+        "GainBuff",
+        "AddBuffAmount",
+        "AddBuffAmountByTag",
+        "AddBuffTime",
+        "AddBuffTimeByTag",
+        "BeginIf_Buff",
+        "BeginIf_Skill",
+        "BeginIf_HasBuffTag",
+        "BeginIf_LastSkillTag",
+        "AddShield",
+        "TriggerBuff",
+    ],
 
-var commandOption
+    command_T_O: [ // 選對象 +1Text
+        "LockAddStatus",
+        "AddActionIndex",
+        "AddExtraAction"
+    ],
+    command_T: [ // 選對象
+        "ForceDie",
+        "Destroy",
+        "Remember"
+    ],
 
+    command_Two: [ // 兩格
+        "ReplaceSkill",
+        "ShowVFX",
+        "ShowVFXOnTarget"
+    ],
+
+    command_O: [ // 一格
+        "AddDamage",
+        "SetDamage",
+        "BeginIf",
+        "Chain",
+        "CastSkill",
+        "RandomCastSkill",
+        "Wait",
+        "PlaySFX"
+    ],
+
+    command_N: [ // 空
+        "SetForceEndAction",
+        "SetSkipCheckSP",
+        "EndIf",
+        "SetPlayAnimationNext",
+        "ShowSkillFailed"
+    ]
+}
 /* Command */
 
 /* 選擇對象指令 */
@@ -96,6 +109,9 @@ var selectTargetOptionT = [ // 給一個輸入格就好
     "SkillLastSelected"
 ]
 
+/* 選擇對象指令 */
+
+/* 選擇對象指令參數 */
 var optionInSelectTargetOptionOne = [ // 下拉兩格參數第一格
     "SameSide",
     "Opponent",
@@ -114,7 +130,7 @@ var optionInSelectTargetOptionTwo = [ // 下拉兩格參數第二格
     "RandomByHatred"
 ]
 
-/* 選擇對象指令 */
+/* 選擇對象指令參數 */
 
 
 
