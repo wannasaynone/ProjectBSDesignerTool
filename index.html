@@ -83,29 +83,43 @@
     </style>
 </head>
 
-
 <body>
     <div id="body">
         <div id="container" class="container">
             <div id="content_remove" class="content_remove">
-                -btn
+                <button id="remove_content_btn" class="remove_content_btn">-btn</button>
             </div>
             <div id="content_block" class="content_block">
                 <div id="timing" class="timing">
-                    time
+                    <select id="timing_slt" class="timing_slt">
+                        <option value="time"> time</option>
+                    </select>
                 </div>
-                <div id="btn_bar" class="btn_bar"> move btn&＋-</div>
-                <div id="command" class="command"> command</div>
+                <div id="btn_bar" class="btn_bar">
+                    <button id="up_btn" class="up_btn">⬆</button>
+                    <button id="down_btn" class="down_btn">⬇</button>
+                    <button id="add_command_btn" class="add_command_btn">+</button>
+                    <button id="delete_command_btn" class="add_command_btn">-</button>
+                </div>
+                <div id="command" class="command">
+                    <select id="command_slt" class="command_slt">
+                        <option value="command">command</option>
+                    </select>
+                </div>
             </div>
         </div>
         <div id="content_join" class="content_join">
-            +btn
+            <button id="add_content_btn" class="add_content_btn">+btn</button>
         </div>
         <div id="export" class="export">
-            export
+            <button id="export_btn" class="export_btn">export</button>
         </div>
     </div>
-
+    <script src="./option.js"></script>
+    <script src="./conponent.js"></script>
 </body>
+<script>
+
+</script>
 
 </html>
