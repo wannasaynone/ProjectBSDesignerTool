@@ -9,7 +9,8 @@ var elementProperty = {
     BTN_BAR: "btn_bar",
     COMMNAD: "command",
     COMMNAD_SLT: "command_slt",
-    CONTENT_JOIN: "content_join"
+    CONTENT_JOIN: "content_join",
+    TARGET_SLT: "target_slt",
 }
 
 function createContainer(status) {
@@ -121,12 +122,27 @@ function buildCommand(commnad_slt) {
     }
 
     commnad_slt.addEventListener("change", function (e) {
-        console.log("commnad_slt change");
+        console.log("commnad_slt change value =", this.value);
+        createTargetCommand();
     })
 
     return commnad_slt;
 }
 
 function createTargetCommand() {
+    let target_slt = document.createElement("select");
+    target_slt.id = elementProperty.TARGET_SLT;
+    target_slt.classList.add(elementProperty.TARGET_SLT);
 
+    for (const e in selectTarget) {
+        let optionArray = selectTarget[e];
+        for (const v of optionArray) {
+            let target = document.createElement("option");
+            target.value = v;
+            target.text = v;
+            target_slt.appendChild(target);
+        }
+    }
+    debugger
+    return target_slt;
 }
