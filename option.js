@@ -100,7 +100,7 @@ var selectTarget = {
         "LastAttacked",
         "CurrentActor",
     ],
-    selectTargetOptionST: [ // 兩格下拉參數
+    selectTargetOptionST: [ // 兩格下拉參數 +1input
         "Select",
         "SelectOther",
     ],
