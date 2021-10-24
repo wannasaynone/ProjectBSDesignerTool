@@ -7,7 +7,7 @@ var elementProperty = {
     TIMING: "timing",
     TIMING_SLT: "timing_slt",
     BTN_BAR: "btn_bar",
-    COMMNAD: "commnad",
+    COMMNAD: "command",
     COMMNAD_SLT: "command_slt",
     CONTENT_JOIN: "content_join"
 }
@@ -65,6 +65,13 @@ function createTriggerTiming() {
     timing_slt.id = elementProperty.TIMING_SLT;
     timing_slt.classList.add(elementProperty.TIMING_SLT);
 
+    for (const e of TriggerTimingOption) {
+        let timing_option = document.createElement("option");
+        timing_option.value = e;
+        timing_option.text = e;
+        timing_slt.appendChild(timing_option);
+    }
+
     timing.appendChild(timing_slt)
 
     return timing;
@@ -95,7 +102,31 @@ function createCommand() {
     let commnad_slt = document.createElement("select");
     commnad_slt.id = elementProperty.COMMNAD_SLT;
     commnad_slt.classList.add(elementProperty.COMMNAD_SLT);
+    commnad_slt = buildCommand(commnad_slt);
 
     commnad.appendChild(commnad_slt);
     return commnad;
+}
+
+function buildCommand(commnad_slt) {
+
+    for (const e in commandOption) {
+        let optionArray = commandOption[e];
+        for (const v of optionArray) {
+            let command_option = document.createElement("option");
+            command_option.value = v;
+            command_option.text = v;
+            commnad_slt.appendChild(command_option);
+        }
+    }
+
+    commnad_slt.addEventListener("change", function (e) {
+        console.log("commnad_slt change");
+    })
+
+    return commnad_slt;
+}
+
+function createTargetCommand() {
+
 }
