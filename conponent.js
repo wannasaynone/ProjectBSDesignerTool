@@ -15,28 +15,17 @@ var elementProperty = {
 
 function createContainer(status) {
 
-    let container = document.createElement("div");
-    container.id = elementProperty.CONTAINER;
-    container.classList.add(elementProperty.CONTAINER);
+    let container = buildElement("div", elementProperty.CONTAINER);
 
-    let content_remove_div = document.createElement("div");
-    content_remove_div.id = elementProperty.CONTENT_REMOVE;
-    content_remove_div.classList.add(elementProperty.CONTENT_REMOVE);
+    let content_remove_div = buildElement("div", elementProperty.CONTENT_REMOVE);
 
-    let content_remove_btn = document.createElement("button");
-    content_remove_btn.id = elementProperty.CONTENT_REMOVE_BTN;
-    content_remove_btn.classList.add(elementProperty.CONTENT_REMOVE_BTN);
-
+    let content_remove_btn = buildElement("button", elementProperty.CONTENT_REMOVE_BTN);
     content_remove_div.appendChild(content_remove_btn);
 
-    let content_block_div = document.createElement("div");
-    content_block_div.id = elementProperty.CONTENT_BLOCK;
-    content_block_div.classList.add(elementProperty.CONTENT_BLOCK);
+    let content_block_div = buildElement("div", elementProperty.CONTENT_BLOCK);
 
     let timing = createTriggerTiming();
-
     let btn_bar = createBtnBar();
-
     let commnad = createCommand();
 
     content_block_div.appendChild(timing);
@@ -58,13 +47,9 @@ function createContainer(status) {
 }
 
 function createTriggerTiming() {
-    let timing = document.createElement("div");
-    timing.id = elementProperty.TIMING;
-    timing.classList.add(elementProperty.TIMING);
+    let timing = buildElement("div", elementProperty.TIMING);
 
-    let timing_slt = document.createElement("select");
-    timing_slt.id = elementProperty.TIMING_SLT;
-    timing_slt.classList.add(elementProperty.TIMING_SLT);
+    let timing_slt = buildElement("select", elementProperty.TIMING_SLT);
 
     for (const e of TriggerTimingOption) {
         let timing_option = document.createElement("option");
@@ -80,15 +65,11 @@ function createTriggerTiming() {
 
 function createBtnBar() {
 
-    let btn_bar = document.createElement("div");
-    btn_bar.id = elementProperty.BTN_BAR;
-    btn_bar.classList.add(elementProperty.BTN_BAR);
+    let btn_bar = buildElement("div", elementProperty.BTN_BAR);
 
     let btn_property = ["up_btn", "down_btn", "add_command_btn", "delete_command_btn"]
     for (const element of btn_property) {
-        let btn = document.createElement("button");
-        btn.id = element;
-        btn.classList.add(element);
+        let btn = buildElement("button", element);
         btn_bar.appendChild(btn);
     }
 
@@ -96,13 +77,9 @@ function createBtnBar() {
 }
 
 function createCommand() {
-    let commnad = document.createElement("div");
-    commnad.id = elementProperty.COMMNAD;
-    commnad.classList.add(elementProperty.COMMNAD);
+    let commnad = buildElement("div", elementProperty.COMMNAD);
 
-    let commnad_slt = document.createElement("select");
-    commnad_slt.id = elementProperty.COMMNAD_SLT;
-    commnad_slt.classList.add(elementProperty.COMMNAD_SLT);
+    let commnad_slt = buildElement("select", elementProperty.COMMNAD_SLT);
     commnad_slt = buildCommand(commnad_slt);
 
     commnad.appendChild(commnad_slt);
@@ -122,17 +99,47 @@ function buildCommand(commnad_slt) {
     }
 
     commnad_slt.addEventListener("change", function (e) {
-        console.log("commnad_slt change value =", this.value);
-        createTargetCommand();
+        debugger
+        // console.log("commnad_slt change value =", this.value);
+        let type = "";
+        switch (true) {
+            case commandOption.command_T_T.includes(this.value):
+                type = "T_T";
+                let target = createTargetCommand();
+                break;
+            case commandOption.command_T_O.includes(this.value):
+                type = "T_O";
+                break;
+            case commandOption.command_T.includes(this.value):
+                type = "T";
+                break;
+            case commandOption.command_Two.includes(this.value):
+                type = "Two";
+                break;
+            case commandOption.command_O.includes(this.value):
+                type = "One";
+                break;
+            case commandOption.command_N.includes(this.value):
+            default:
+                type = "";
+                break;
+        }
+        // console.log("commnad type = ", type)
+        createTargetCommand(type);
     })
 
     return commnad_slt;
 }
 
+function changeCommand(type) {
+
+    switch (type) {
+        case "T_T":
+    }
+}
+
 function createTargetCommand() {
-    let target_slt = document.createElement("select");
-    target_slt.id = elementProperty.TARGET_SLT;
-    target_slt.classList.add(elementProperty.TARGET_SLT);
+    let target_slt = buildElement("select", elementProperty.TARGET_SLT);
 
     for (const e in selectTarget) {
         let optionArray = selectTarget[e];
@@ -143,6 +150,10 @@ function createTargetCommand() {
             target_slt.appendChild(target);
         }
     }
-    debugger
+
     return target_slt;
+}
+
+function changeSelectTarget() {
+
 }
