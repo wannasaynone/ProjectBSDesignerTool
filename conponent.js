@@ -16,6 +16,8 @@ var elementProperty = {
     TARGET_TEXT: "target_text",
     TARGET_IN_ONE: "target_in_one",
     TARGET_IN_TWO: "target_in_two",
+    COMMAND_SLT_DIV: "command_select_div",
+    TARGET_SLT_DIV: "target_select_div",
 }
 
 function createContainer(status) {
@@ -104,6 +106,9 @@ function buildCommand(command_slt) {
     }
 
     command_slt.addEventListener("change", function (e) {
+        let lastElement = this.parentElement.getElementsByClassName(elementProperty.COMMAND_SLT_DIV)[0];
+        lastElement && lastElement.remove();
+
         let elementArray = [];
         switch (true) {
             case commandOption.command_T_T.includes(this.value): // T+2text
@@ -136,9 +141,11 @@ function buildCommand(command_slt) {
             default:
                 break;
         }
+        let command_select_div = buildElement("div", elementProperty.COMMAND_SLT_DIV);
         for (const e of elementArray) {
-            this.parentElement.appendChild(e);
+            command_select_div.appendChild(e);
         }
+        this.parentElement.appendChild(command_select_div);
         // console.log("command type = ", type)
     })
 
@@ -159,27 +166,31 @@ function createTargetCommand() {
     }
 
     target_slt.addEventListener("change", function (e) {
-        // debugger
+        let lastElement = this.parentElement.getElementsByClassName(elementProperty.TARGET_SLT_DIV)[0];
+        lastElement && lastElement.remove();
+
         let element_array = [];
         switch (true) {
             case selectTarget.selectTargetOptionST.includes(this.value): // 兩格下拉參數 +1input
                 let target_select_1 = buildSelectTargetInOptionOne(1);
                 let target_select_2 = buildSelectTargetInOptionOne(2);
-                element_array.unshift(target_select_1);
-                element_array.unshift(target_select_2);
+                element_array.push(target_select_1);
+                element_array.push(target_select_2);
 
             case selectTarget.selectTargetOptionT.includes(this.value): // 一格input
-                let target_text = buildElement("input", elementProperty.target_text);
+                let target_text = buildElement("input", elementProperty.TARGET_TEXT);
                 target_text.placeholder = "target_text.....";
-                element_array.unshift(target_text);
+                element_array.push(target_text);
                 break;
             case selectTarget.selectTargetOptionSpace.includes(this.value): // 無後續
                 break;
         }
 
+        let target_select_div = buildElement("div", elementProperty.TARGET_SLT_DIV);
         for (const e of element_array) {
-            this.parentElement.appendChild(e);
+            target_select_div.appendChild(e);
         }
+        this.parentElement.appendChild(target_select_div);
     })
 
     return target_slt;
