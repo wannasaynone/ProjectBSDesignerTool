@@ -83,29 +83,21 @@
     </style>
 </head>
 
-
 <body>
     <div id="body">
-        <div id="container" class="container">
-            <div id="content_remove" class="content_remove">
-                -btn
-            </div>
-            <div id="content_block" class="content_block">
-                <div id="timing" class="timing">
-                    time
-                </div>
-                <div id="btn_bar" class="btn_bar"> move btn&＋-</div>
-                <div id="command" class="command"> command</div>
-            </div>
-        </div>
         <div id="content_join" class="content_join">
-            +btn
+            <button id="add_content_btn" class="add_content_btn">+btn</button>
         </div>
         <div id="export" class="export">
-            export
+            <button id="export_btn" class="export_btn">export</button>
         </div>
     </div>
-
+    <script src="./util.js"></script>
+    <script src="./option.js"></script>
+    <script src="./conponent.js"></script>
 </body>
+<script>
+    createContainer("load");
+</script>
 
 </html>
