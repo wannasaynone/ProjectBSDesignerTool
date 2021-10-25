@@ -112,9 +112,9 @@ var selectTarget = {
 
 /* 選擇對象指令參數 */
 var optionInSelectTargetOptionOne = [ // 下拉兩格參數第一格
-    "SameSide",
+    "All",
     "Opponent",
-    "All"
+    "SameSide",
 ]
 
 var optionInSelectTargetOptionTwo = [ // 下拉兩格參數第二格

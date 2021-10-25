@@ -7,10 +7,15 @@ var elementProperty = {
     TIMING: "timing",
     TIMING_SLT: "timing_slt",
     BTN_BAR: "btn_bar",
-    COMMNAD: "command",
-    COMMNAD_SLT: "command_slt",
+    COMMAND: "command",
+    COMMAND_SLT: "command_slt",
     CONTENT_JOIN: "content_join",
     TARGET_SLT: "target_slt",
+    COMMAND_TEXT_1: "command_text_1",
+    COMMAND_TEXT_2: "command_text_2",
+    TARGET_TEXT: "target_text",
+    TARGET_IN_ONE: "target_in_one",
+    TARGET_IN_TWO: "target_in_two",
 }
 
 function createContainer(status) {
@@ -26,11 +31,11 @@ function createContainer(status) {
 
     let timing = createTriggerTiming();
     let btn_bar = createBtnBar();
-    let commnad = createCommand();
+    let command = createCommand();
 
     content_block_div.appendChild(timing);
     content_block_div.appendChild(btn_bar);
-    content_block_div.appendChild(commnad);
+    content_block_div.appendChild(command);
 
     container.appendChild(content_remove_div);
     container.appendChild(content_block_div);
@@ -77,16 +82,16 @@ function createBtnBar() {
 }
 
 function createCommand() {
-    let commnad = buildElement("div", elementProperty.COMMNAD);
+    let command = buildElement("div", elementProperty.COMMAND);
 
-    let commnad_slt = buildElement("select", elementProperty.COMMNAD_SLT);
-    commnad_slt = buildCommand(commnad_slt);
+    let command_slt = buildElement("select", elementProperty.COMMAND_SLT);
+    command_slt = buildCommand(command_slt);
 
-    commnad.appendChild(commnad_slt);
-    return commnad;
+    command.appendChild(command_slt);
+    return command;
 }
 
-function buildCommand(commnad_slt) {
+function buildCommand(command_slt) {
 
     for (const e in commandOption) {
         let optionArray = commandOption[e];
@@ -94,48 +99,50 @@ function buildCommand(commnad_slt) {
             let command_option = document.createElement("option");
             command_option.value = v;
             command_option.text = v;
-            commnad_slt.appendChild(command_option);
+            command_slt.appendChild(command_option);
         }
     }
 
-    commnad_slt.addEventListener("change", function (e) {
-        debugger
-        // console.log("commnad_slt change value =", this.value);
-        let type = "";
+    command_slt.addEventListener("change", function (e) {
+        let elementArray = [];
         switch (true) {
-            case commandOption.command_T_T.includes(this.value):
-                type = "T_T";
-                let target = createTargetCommand();
+            case commandOption.command_T_T.includes(this.value): // T+2text
+                var command_text_2 = buildElement("input", elementProperty.COMMAND_TEXT_2);
+                command_text_2.placeholder = "command_text_2.....";
+                elementArray.unshift(command_text_2);
+
+            case commandOption.command_T_O.includes(this.value): // T+1text
+                var command_text_1 = buildElement("input", elementProperty.COMMAND_TEXT_1);
+                command_text_1.placeholder = "command_text_1.....";
+                elementArray.unshift(command_text_1);
+
+            case commandOption.command_T.includes(this.value): // T
+                var target = createTargetCommand();
+                elementArray.unshift(target);
                 break;
-            case commandOption.command_T_O.includes(this.value):
-                type = "T_O";
+
+            case commandOption.command_Two.includes(this.value): // 2text
+                var command_text_2 = buildElement("input", elementProperty.COMMAND_TEXT_2);
+                command_text_2.placeholder = "command_text_2.....";
+                elementArray.unshift(command_text_2);
+
+            case commandOption.command_O.includes(this.value): // 1text
+                var command_text_1 = buildElement("input", elementProperty.COMMAND_TEXT_1);
+                command_text_1.placeholder = "command_text_1.....";
+                elementArray.unshift(command_text_1);
                 break;
-            case commandOption.command_T.includes(this.value):
-                type = "T";
-                break;
-            case commandOption.command_Two.includes(this.value):
-                type = "Two";
-                break;
-            case commandOption.command_O.includes(this.value):
-                type = "One";
-                break;
-            case commandOption.command_N.includes(this.value):
+
+            case commandOption.command_N.includes(this.value): // N
             default:
-                type = "";
                 break;
         }
-        // console.log("commnad type = ", type)
-        createTargetCommand(type);
+        for (const e of elementArray) {
+            this.parentElement.appendChild(e);
+        }
+        // console.log("command type = ", type)
     })
 
-    return commnad_slt;
-}
-
-function changeCommand(type) {
-
-    switch (type) {
-        case "T_T":
-    }
+    return command_slt;
 }
 
 function createTargetCommand() {
@@ -151,9 +158,53 @@ function createTargetCommand() {
         }
     }
 
+    target_slt.addEventListener("change", function (e) {
+        // debugger
+        let element_array = [];
+        switch (true) {
+            case selectTarget.selectTargetOptionST.includes(this.value): // 兩格下拉參數 +1input
+                let target_select_1 = buildSelectTargetInOptionOne(1);
+                let target_select_2 = buildSelectTargetInOptionOne(2);
+                element_array.unshift(target_select_1);
+                element_array.unshift(target_select_2);
+
+            case selectTarget.selectTargetOptionT.includes(this.value): // 一格input
+                let target_text = buildElement("input", elementProperty.target_text);
+                target_text.placeholder = "target_text.....";
+                element_array.unshift(target_text);
+                break;
+            case selectTarget.selectTargetOptionSpace.includes(this.value): // 無後續
+                break;
+        }
+
+        for (const e of element_array) {
+            this.parentElement.appendChild(e);
+        }
+    })
+
     return target_slt;
 }
 
-function changeSelectTarget() {
+function buildSelectTargetInOptionOne(type) {
+    let element
+    if (type == 1) {
+        element = buildElement("select", elementProperty.TARGET_IN_ONE);
 
+        for (const e of optionInSelectTargetOptionOne) {
+            let target = document.createElement("option");
+            target.value = e;
+            target.text = e;
+            element.appendChild(target);
+        }
+    } else if (type == 2) {
+        element = buildElement("select", elementProperty.TARGET_IN_TWO);
+
+        for (const e of optionInSelectTargetOptionTwo) {
+            let target = document.createElement("option");
+            target.value = e;
+            target.text = e;
+            element.appendChild(target);
+        }
+    }
+    return element;
 }
