@@ -52,7 +52,6 @@ function createContainer(status) {
     })
     addbtn_div.appendChild(addbtn);
 
-
     content_block_div.appendChild(timing);
 
     content_block_div.appendChild(command_bar);
@@ -106,12 +105,24 @@ function createBtnBar() {
         let btn = buildElement("button", element);
         if (element == "up_btn") {
             btn.innerHTML = "⬆"
+            btn.addEventListener("click", function (e) {
+                let target = this.parentElement.parentElement;
+                let target_parent = this.parentElement.parentElement.parentElement
+                if (this.parentElement.parentElement.previousSibling.previousSibling) {
+                    target_parent.insertBefore(target, target.previousSibling)
+                }
+            })
         } else if (element == "down_btn") {
             btn.innerHTML = "⬇"
-        } else if (element == "add_command_btn") {
+            btn.addEventListener("click", function (e) {
+                let target = this.parentElement.parentElement;
+                let target_parent = this.parentElement.parentElement.parentElement
+                if (target.nextSibling.nextSibling) {
+                    target_parent.insertBefore(target, target.nextSibling.nextSibling)
+                }
 
-        }
-        else if (element == "delete_command_btn") {
+            })
+        } else if (element == "delete_command_btn") {
             btn.innerHTML = "-"
             btn.addEventListener("click", function (e) {
                 this.parentElement.parentElement.remove();
