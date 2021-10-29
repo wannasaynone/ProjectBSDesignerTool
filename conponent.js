@@ -18,6 +18,9 @@ var elementProperty = {
     TARGET_IN_TWO: "target_in_two",
     COMMAND_SLT_DIV: "command_select_div",
     TARGET_SLT_DIV: "target_select_div",
+    ADD_CONTENT_BTN: "add_content_btn",
+    COMMAND_BAR: "command_bar",
+    ADD_COMMAND_BTN: "add_command_btn",
 }
 
 function createContainer(status) {
@@ -27,32 +30,56 @@ function createContainer(status) {
     let content_remove_div = buildElement("div", elementProperty.CONTENT_REMOVE);
 
     let content_remove_btn = buildElement("button", elementProperty.CONTENT_REMOVE_BTN);
+    content_remove_btn.innerHTML = "-btn"
     content_remove_div.appendChild(content_remove_btn);
+
+    content_remove_btn.addEventListener("click", function (e) {
+        this.parentElement.parentElement.remove();
+    })
 
     let content_block_div = buildElement("div", elementProperty.CONTENT_BLOCK);
 
     let timing = createTriggerTiming();
-    let btn_bar = createBtnBar();
-    let command = createCommand();
+
+
+    let command_bar = buildCommandBar();
+
+    let addbtn_div = buildElement("div", "add_command");
+    let addbtn = buildElement("button", "add_command_btn");
+    addbtn.innerHTML = "+"
+    addbtn.addEventListener("click", function (e) {
+        this.parentElement.parentElement.insertBefore(buildCommandBar(), this.parentElement);
+    })
+    addbtn_div.appendChild(addbtn);
+
 
     content_block_div.appendChild(timing);
-    content_block_div.appendChild(btn_bar);
-    content_block_div.appendChild(command);
+
+    content_block_div.appendChild(command_bar);
+    content_block_div.appendChild(addbtn_div);
 
     container.appendChild(content_remove_div);
     container.appendChild(content_block_div);
 
     let bodyE = document.getElementById("body");
 
-    if (status === "load") {
-        bodyE.insertBefore(container, document.getElementById(elementProperty.CONTENT_JOIN));
-    } else {
-        bodyE.appendChild(container);
-    }
+    // if (status === "load") {
+    bodyE.insertBefore(container, document.getElementById(elementProperty.CONTENT_JOIN));
+    // } else {
+    //     bodyE.appendChild(container);
+    // }
 
     console.log(container);
 }
+function buildCommandBar() {
+    let command_bar = buildElement("div", elementProperty.COMMAND_BAR);
+    let btn_bar = createBtnBar();
+    let command = createCommand();
+    command_bar.appendChild(btn_bar);
+    command_bar.appendChild(command);
 
+    return command_bar;
+}
 function createTriggerTiming() {
     let timing = buildElement("div", elementProperty.TIMING);
 
@@ -74,12 +101,24 @@ function createBtnBar() {
 
     let btn_bar = buildElement("div", elementProperty.BTN_BAR);
 
-    let btn_property = ["up_btn", "down_btn", "add_command_btn", "delete_command_btn"]
+    let btn_property = ["delete_command_btn", "up_btn", "down_btn"]
     for (const element of btn_property) {
         let btn = buildElement("button", element);
+        if (element == "up_btn") {
+            btn.innerHTML = "⬆"
+        } else if (element == "down_btn") {
+            btn.innerHTML = "⬇"
+        } else if (element == "add_command_btn") {
+
+        }
+        else if (element == "delete_command_btn") {
+            btn.innerHTML = "-"
+            btn.addEventListener("click", function (e) {
+                this.parentElement.parentElement.remove();
+            })
+        }
         btn_bar.appendChild(btn);
     }
-
     return btn_bar;
 }
 
