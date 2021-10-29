@@ -21,6 +21,8 @@ var elementProperty = {
     ADD_CONTENT_BTN: "add_content_btn",
     COMMAND_BAR: "command_bar",
     ADD_COMMAND_BTN: "add_command_btn",
+    REPO_BTN: "export_btn",
+    EXPORT_TEXT: "export_text",
 }
 
 function createContainer(status) {
