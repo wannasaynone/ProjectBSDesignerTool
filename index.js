@@ -25,7 +25,7 @@ function bindBtnEvent() {
             if (repo_string !== "") {
                 repo_string = repo_string + `\n\n`;
             }
-            repo_string = repo_string + `${class_top}{`;
+            repo_string = repo_string + `${class_top}\n{`;
 
             for (var i = 0; i <= command_count.length - 1; i++) {
                 let this_commmand = command_count[i];
@@ -43,7 +43,7 @@ function bindBtnEvent() {
                     this_target_in_two_value = this_target_slt_div.getElementsByClassName(elementProperty.TARGET_IN_TWO)[0] && this_target_slt_div.getElementsByClassName(elementProperty.TARGET_IN_TWO)[0].value;
                     this_target_text_value = this_target_slt_div.getElementsByClassName(elementProperty.TARGET_TEXT)[0] && this_target_slt_div.getElementsByClassName(elementProperty.TARGET_TEXT)[0].value;
                 }
-                repo_string = repo_string + `\n\t `;
+                repo_string = repo_string + `\n`;
                 if (this_target_slt_value) {
                     repo_string = repo_string + `${this_command_slt_value}(${this_target_slt_value}`;
                 } else {
