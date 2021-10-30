@@ -16,6 +16,13 @@ var elementProperty = {
     TARGET_TEXT: "target_text",
     TARGET_IN_ONE: "target_in_one",
     TARGET_IN_TWO: "target_in_two",
+    COMMAND_SLT_DIV: "command_select_div",
+    TARGET_SLT_DIV: "target_select_div",
+    ADD_CONTENT_BTN: "add_content_btn",
+    COMMAND_BAR: "command_bar",
+    ADD_COMMAND_BTN: "add_command_btn",
+    REPO_BTN: "export_btn",
+    EXPORT_TEXT: "export_text",
 }
 
 function createContainer(status) {
@@ -25,32 +32,55 @@ function createContainer(status) {
     let content_remove_div = buildElement("div", elementProperty.CONTENT_REMOVE);
 
     let content_remove_btn = buildElement("button", elementProperty.CONTENT_REMOVE_BTN);
+    content_remove_btn.innerHTML = "-btn"
     content_remove_div.appendChild(content_remove_btn);
+
+    content_remove_btn.addEventListener("click", function (e) {
+        this.parentElement.parentElement.remove();
+    })
 
     let content_block_div = buildElement("div", elementProperty.CONTENT_BLOCK);
 
     let timing = createTriggerTiming();
-    let btn_bar = createBtnBar();
-    let command = createCommand();
+
+
+    let command_bar = buildCommandBar();
+
+    let addbtn_div = buildElement("div", "add_command");
+    let addbtn = buildElement("button", "add_command_btn");
+    addbtn.innerHTML = "+"
+    addbtn.addEventListener("click", function (e) {
+        this.parentElement.parentElement.insertBefore(buildCommandBar(), this.parentElement);
+    })
+    addbtn_div.appendChild(addbtn);
 
     content_block_div.appendChild(timing);
-    content_block_div.appendChild(btn_bar);
-    content_block_div.appendChild(command);
+
+    content_block_div.appendChild(command_bar);
+    content_block_div.appendChild(addbtn_div);
 
     container.appendChild(content_remove_div);
     container.appendChild(content_block_div);
 
     let bodyE = document.getElementById("body");
 
-    if (status === "load") {
-        bodyE.insertBefore(container, document.getElementById(elementProperty.CONTENT_JOIN));
-    } else {
-        bodyE.appendChild(container);
-    }
+    // if (status === "load") {
+    bodyE.insertBefore(container, document.getElementById(elementProperty.CONTENT_JOIN));
+    // } else {
+    //     bodyE.appendChild(container);
+    // }
 
     console.log(container);
 }
+function buildCommandBar() {
+    let command_bar = buildElement("div", elementProperty.COMMAND_BAR);
+    let btn_bar = createBtnBar();
+    let command = createCommand();
+    command_bar.appendChild(btn_bar);
+    command_bar.appendChild(command);
 
+    return command_bar;
+}
 function createTriggerTiming() {
     let timing = buildElement("div", elementProperty.TIMING);
 
@@ -72,12 +102,36 @@ function createBtnBar() {
 
     let btn_bar = buildElement("div", elementProperty.BTN_BAR);
 
-    let btn_property = ["up_btn", "down_btn", "add_command_btn", "delete_command_btn"]
+    let btn_property = ["delete_command_btn", "up_btn", "down_btn"]
     for (const element of btn_property) {
         let btn = buildElement("button", element);
+        if (element == "up_btn") {
+            btn.innerHTML = "⬆"
+            btn.addEventListener("click", function (e) {
+                let target = this.parentElement.parentElement;
+                let target_parent = this.parentElement.parentElement.parentElement
+                if (this.parentElement.parentElement.previousSibling.previousSibling) {
+                    target_parent.insertBefore(target, target.previousSibling)
+                }
+            })
+        } else if (element == "down_btn") {
+            btn.innerHTML = "⬇"
+            btn.addEventListener("click", function (e) {
+                let target = this.parentElement.parentElement;
+                let target_parent = this.parentElement.parentElement.parentElement
+                if (target.nextSibling.nextSibling) {
+                    target_parent.insertBefore(target, target.nextSibling.nextSibling)
+                }
+
+            })
+        } else if (element == "delete_command_btn") {
+            btn.innerHTML = "-"
+            btn.addEventListener("click", function (e) {
+                this.parentElement.parentElement.remove();
+            })
+        }
         btn_bar.appendChild(btn);
     }
-
     return btn_bar;
 }
 
@@ -104,6 +158,9 @@ function buildCommand(command_slt) {
     }
 
     command_slt.addEventListener("change", function (e) {
+        let lastElement = this.parentElement.getElementsByClassName(elementProperty.COMMAND_SLT_DIV)[0];
+        lastElement && lastElement.remove();
+
         let elementArray = [];
         switch (true) {
             case commandOption.command_T_T.includes(this.value): // T+2text
@@ -136,9 +193,11 @@ function buildCommand(command_slt) {
             default:
                 break;
         }
+        let command_select_div = buildElement("div", elementProperty.COMMAND_SLT_DIV);
         for (const e of elementArray) {
-            this.parentElement.appendChild(e);
+            command_select_div.appendChild(e);
         }
+        this.parentElement.appendChild(command_select_div);
         // console.log("command type = ", type)
     })
 
@@ -159,27 +218,31 @@ function createTargetCommand() {
     }
 
     target_slt.addEventListener("change", function (e) {
-        // debugger
+        let lastElement = this.parentElement.getElementsByClassName(elementProperty.TARGET_SLT_DIV)[0];
+        lastElement && lastElement.remove();
+
         let element_array = [];
         switch (true) {
             case selectTarget.selectTargetOptionST.includes(this.value): // 兩格下拉參數 +1input
                 let target_select_1 = buildSelectTargetInOptionOne(1);
                 let target_select_2 = buildSelectTargetInOptionOne(2);
-                element_array.unshift(target_select_1);
-                element_array.unshift(target_select_2);
+                element_array.push(target_select_1);
+                element_array.push(target_select_2);
 
             case selectTarget.selectTargetOptionT.includes(this.value): // 一格input
-                let target_text = buildElement("input", elementProperty.target_text);
+                let target_text = buildElement("input", elementProperty.TARGET_TEXT);
                 target_text.placeholder = "target_text.....";
-                element_array.unshift(target_text);
+                element_array.push(target_text);
                 break;
             case selectTarget.selectTargetOptionSpace.includes(this.value): // 無後續
                 break;
         }
 
+        let target_select_div = buildElement("div", elementProperty.TARGET_SLT_DIV);
         for (const e of element_array) {
-            this.parentElement.appendChild(e);
+            target_select_div.appendChild(e);
         }
+        this.parentElement.appendChild(target_select_div);
     })
 
     return target_slt;
