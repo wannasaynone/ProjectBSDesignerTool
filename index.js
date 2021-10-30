@@ -70,7 +70,7 @@ function bindBtnEvent() {
                 //AddStatus(SelectOther (Opponent, Manual, 1), string, string)
             }
 
-            repo_string = repo_string + ` \n } `;
+            repo_string = repo_string + `\n} `;
         }
 
         export_text.value = repo_string;
