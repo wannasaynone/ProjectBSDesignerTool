@@ -55,7 +55,7 @@ function bindBtnEvent() {
                 } else if (this_target_text_value) {
                     repo_string = repo_string + `(${this_target_text_value})`;
                 }
-                if (this_target_slt_value) {
+                if (this_target_slt_value && this_command_text_1_value) {
                     repo_string = repo_string + `,`
                 }
                 if (this_command_text_1_value) {
