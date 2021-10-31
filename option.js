@@ -124,9 +124,11 @@ var optionInSelectTargetOptionTwo = [ // 下拉兩格參數第二格
     "HighestAttack",
     "HighestDefense",
     "HighestSpeed",
+    "HighestHP",
     "LowestAttack",
     "LowestDefense",
     "LowestSpeed",
+    "LowestHP",
     "RandomByHatred"
 ]
 
