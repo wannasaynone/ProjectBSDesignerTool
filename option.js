@@ -86,7 +86,8 @@ var commandOption = {
         "SetSkipCheckSP",
         "EndIf",
         "SetPlayAnimationNext",
-        "ShowSkillFailed"
+        "ShowSkillFailed",
+        "Quit"
     ]
 }
 /* Command */
