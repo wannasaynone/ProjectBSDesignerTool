@@ -67,7 +67,8 @@ var commandOption = {
     command_Two: [ // 兩格
         "ReplaceSkill",
         "ShowVFX",
-        "ShowVFXOnTarget"
+        "ShowVFXOnTarget",
+        "Record"
     ],
 
     command_O: [ // 一格
